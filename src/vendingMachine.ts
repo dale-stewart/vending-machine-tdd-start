@@ -1,3 +1,11 @@
+import { identifyCoin } from "./coinIdentifier";
+
+const COIN_VALUES_CENTS: { [kind: string]: number } = {
+  Nickel: 5,
+  Dime: 10,
+  Quarter: 25,
+};
+
 export class VendingMachine {
   private totalCents = 0;
 
@@ -9,6 +17,6 @@ export class VendingMachine {
   }
 
   insertCoin(coin: { weight: number; size: number }): void {
-    this.totalCents += 5;
+    this.totalCents += COIN_VALUES_CENTS[identifyCoin(coin)] ?? 0;
   }
 }

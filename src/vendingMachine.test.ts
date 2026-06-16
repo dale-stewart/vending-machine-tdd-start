@@ -11,4 +11,10 @@ describe("VendingMachine", () => {
     machine.insertCoin({ weight: 5.0, size: 21.21 });
     expect(machine.display()).toEqual("0.05");
   });
+
+  it("displays 0.10 after inserting a dime", () => {
+    const machine = new VendingMachine();
+    machine.insertCoin({ weight: 2.268, size: 17.91 });
+    expect(machine.display()).toEqual("0.10");
+  });
 });
