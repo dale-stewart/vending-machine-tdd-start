@@ -159,4 +159,16 @@ describe("VendingMachine", () => {
     const machine = new VendingMachine({}, [{ weight: 2.268, size: 17.91 }]);
     expect(machine.display()).toEqual("EXACT CHANGE ONLY");
   });
+
+  it("draws change from the bank, depleting it into the exact-change state", () => {
+    const machine = new VendingMachine({}, [{ weight: 5.0, size: 21.21 }]);
+    machine.insertCoin({ weight: 5.67, size: 24.26 });
+    machine.insertCoin({ weight: 5.67, size: 24.26 });
+    machine.insertCoin({ weight: 5.0, size: 21.21 });
+    machine.selectProduct("chips");
+    expect([machine.display(), machine.display()]).toEqual([
+      "THANK YOU",
+      "EXACT CHANGE ONLY",
+    ]);
+  });
 });

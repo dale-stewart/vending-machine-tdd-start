@@ -116,7 +116,14 @@ export class VendingMachine {
       this.pendingMessage = `PRICE ${formatCents(price)}`;
       return;
     }
-    this.coinReturnSlot.push(...makeChange(this.totalCents - price));
+    const change = this.drawChange(this.totalCents - price) ?? [];
+    for (const coin of change) {
+      const index = this.changeBank.findIndex(
+        (c) => c.weight === coin.weight && c.size === coin.size,
+      );
+      this.changeBank.splice(index, 1);
+    }
+    this.coinReturnSlot.push(...change);
     this.inventory[product] = this.stockOf(product) - 1;
     this.clearInsertedFunds();
     this.pendingMessage = "THANK YOU";
