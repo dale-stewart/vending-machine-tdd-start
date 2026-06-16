@@ -30,4 +30,10 @@ describe("VendingMachine", () => {
     machine.insertCoin({ weight: 2.5, size: 19.05 });
     expect(machine.coinReturn()).toEqual([{ weight: 2.5, size: 19.05 }]);
   });
+
+  it("displays the price when cola is selected with insufficient funds", () => {
+    const machine = new VendingMachine();
+    machine.selectProduct("cola");
+    expect(machine.display()).toEqual("PRICE 1.00");
+  });
 });

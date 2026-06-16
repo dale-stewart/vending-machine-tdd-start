@@ -6,11 +6,19 @@ const COIN_VALUES_CENTS: { [kind: string]: number } = {
   Quarter: 25,
 };
 
+const PRODUCT_PRICES_CENTS: { [name: string]: number } = {
+  cola: 100,
+};
+
 export class VendingMachine {
   private totalCents = 0;
   private rejectedCoins: Coin[] = [];
+  private pendingMessage: string | null = null;
 
   display(): string {
+    if (this.pendingMessage !== null) {
+      return this.pendingMessage;
+    }
     if (this.totalCents === 0) {
       return "INSERT COIN";
     }
@@ -28,5 +36,12 @@ export class VendingMachine {
 
   coinReturn(): Coin[] {
     return this.rejectedCoins;
+  }
+
+  selectProduct(product: string): void {
+    const price = PRODUCT_PRICES_CENTS[product];
+    if (this.totalCents < price) {
+      this.pendingMessage = `PRICE ${(price / 100).toFixed(2)}`;
+    }
   }
 }
