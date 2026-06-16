@@ -154,4 +154,9 @@ describe("VendingMachine", () => {
     const machine = new VendingMachine({}, []);
     expect(machine.display()).toEqual("EXACT CHANGE ONLY");
   });
+
+  it("displays EXACT CHANGE ONLY when the bank has only a dime (cannot make 5)", () => {
+    const machine = new VendingMachine({}, [{ weight: 2.268, size: 17.91 }]);
+    expect(machine.display()).toEqual("EXACT CHANGE ONLY");
+  });
 });

@@ -52,7 +52,27 @@ export class VendingMachine {
   }
 
   private canMakeChange(): boolean {
-    return this.changeBank.length > 0;
+    return this.drawChange(5) !== null;
+  }
+
+  private drawChange(amount: number): Coin[] | null {
+    const sorted = [...this.changeBank].sort(
+      (a, b) => this.coinValue(b) - this.coinValue(a),
+    );
+    const used: Coin[] = [];
+    let remaining = amount;
+    for (const coin of sorted) {
+      const value = this.coinValue(coin);
+      if (value <= remaining) {
+        used.push(coin);
+        remaining -= value;
+      }
+    }
+    return remaining === 0 ? used : null;
+  }
+
+  private coinValue(coin: Coin): number {
+    return COIN_VALUES_CENTS[identifyCoin(coin)] ?? 0;
   }
 
   display(): string {
