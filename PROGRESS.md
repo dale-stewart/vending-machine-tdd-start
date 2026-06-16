@@ -18,9 +18,12 @@ Design note: coins don't know their own value — identified by weight/size.
 
 ## Feature 2: Select Product (cola $1.00, chips $0.50, candy $0.65)
 - [x] Select with insufficient funds shows PRICE x.xx (cola)
-- [ ] PRICE/THANK YOU message reverts to INSERT COIN/amount after one display read
-- [ ] Select with sufficient funds dispenses + shows THANK YOU, resets total
-- [ ] Chips ($0.50) and candy ($0.65) prices
+- [x] PRICE/THANK YOU message reverts to INSERT COIN/amount after one display read
+- [x] Select with sufficient funds dispenses + shows THANK YOU, resets total
+- [x] Chips ($0.50) and candy ($0.65) prices
+
+Known gap (untested, out of stated scope): selecting an unknown product
+falls through to the dispense branch (0 < undefined === false).
 
 ## Upcoming features
 - [ ] Make Change

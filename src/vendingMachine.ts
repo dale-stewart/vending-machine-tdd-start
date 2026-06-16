@@ -9,6 +9,7 @@ const COIN_VALUES_CENTS: { [kind: string]: number } = {
 const PRODUCT_PRICES_CENTS: { [name: string]: number } = {
   cola: 100,
   chips: 50,
+  candy: 65,
 };
 
 function formatCents(cents: number): string {

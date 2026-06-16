@@ -72,4 +72,10 @@ describe("VendingMachine", () => {
     machine.selectProduct("chips");
     expect(machine.display()).toEqual("PRICE 0.50");
   });
+
+  it("displays the price when candy is selected with insufficient funds", () => {
+    const machine = new VendingMachine();
+    machine.selectProduct("candy");
+    expect(machine.display()).toEqual("PRICE 0.65");
+  });
 });
