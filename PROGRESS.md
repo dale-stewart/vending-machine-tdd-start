@@ -30,7 +30,11 @@ falls through to the dispense branch (0 < undefined === false).
 - [x] Multi-denomination change (quarter, dime, nickel via greedy)
 - [x] Refactor: single COIN_CATALOG source of truth across modules
 
+## Feature 4: Return Coins
+- [x] returnCoins() puts inserted coins into the coin return
+- [x] returnCoins() resets display to INSERT COIN
+- [x] Purchase consumes inserted coins (can't be returned afterward)
+
 ## Upcoming features
-- [ ] Return Coins (resets display to INSERT COIN)
 - [ ] Sold Out
 - [ ] Exact Change Only

@@ -76,6 +76,7 @@ export class VendingMachine {
     }
     this.coinReturnSlot.push(...makeChange(this.totalCents - price));
     this.totalCents = 0;
+    this.insertedCoins = [];
     this.pendingMessage = "THANK YOU";
   }
 }

@@ -120,4 +120,14 @@ describe("VendingMachine", () => {
     machine.returnCoins();
     expect(machine.display()).toEqual("INSERT COIN");
   });
+
+  it("does not return coins that were consumed by a purchase", () => {
+    const machine = new VendingMachine();
+    for (let i = 0; i < 4; i++) {
+      machine.insertCoin({ weight: 5.67, size: 24.26 });
+    }
+    machine.selectProduct("cola");
+    machine.returnCoins();
+    expect(machine.coinReturn()).toEqual([]);
+  });
 });
