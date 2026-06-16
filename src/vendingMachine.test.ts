@@ -24,4 +24,10 @@ describe("VendingMachine", () => {
     machine.insertCoin({ weight: 2.268, size: 17.91 });
     expect(machine.display()).toEqual("0.15");
   });
+
+  it("routes a rejected penny to the coin return", () => {
+    const machine = new VendingMachine();
+    machine.insertCoin({ weight: 2.5, size: 19.05 });
+    expect(machine.coinReturn()).toEqual([{ weight: 2.5, size: 19.05 }]);
+  });
 });

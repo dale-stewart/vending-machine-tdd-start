@@ -8,6 +8,7 @@ const COIN_VALUES_CENTS: { [kind: string]: number } = {
 
 export class VendingMachine {
   private totalCents = 0;
+  private rejectedCoins: { weight: number; size: number }[] = [];
 
   display(): string {
     if (this.totalCents === 0) {
@@ -17,6 +18,15 @@ export class VendingMachine {
   }
 
   insertCoin(coin: { weight: number; size: number }): void {
-    this.totalCents += COIN_VALUES_CENTS[identifyCoin(coin)] ?? 0;
+    const value = COIN_VALUES_CENTS[identifyCoin(coin)];
+    if (value === undefined) {
+      this.rejectedCoins.push(coin);
+      return;
+    }
+    this.totalCents += value;
+  }
+
+  coinReturn(): { weight: number; size: number }[] {
+    return this.rejectedCoins;
   }
 }
