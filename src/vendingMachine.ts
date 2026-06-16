@@ -1,4 +1,4 @@
-import { identifyCoin } from "./coinIdentifier";
+import { identifyCoin, Coin } from "./coinIdentifier";
 
 const COIN_VALUES_CENTS: { [kind: string]: number } = {
   Nickel: 5,
@@ -8,7 +8,7 @@ const COIN_VALUES_CENTS: { [kind: string]: number } = {
 
 export class VendingMachine {
   private totalCents = 0;
-  private rejectedCoins: { weight: number; size: number }[] = [];
+  private rejectedCoins: Coin[] = [];
 
   display(): string {
     if (this.totalCents === 0) {
@@ -17,7 +17,7 @@ export class VendingMachine {
     return (this.totalCents / 100).toFixed(2);
   }
 
-  insertCoin(coin: { weight: number; size: number }): void {
+  insertCoin(coin: Coin): void {
     const value = COIN_VALUES_CENTS[identifyCoin(coin)];
     if (value === undefined) {
       this.rejectedCoins.push(coin);
@@ -26,7 +26,7 @@ export class VendingMachine {
     this.totalCents += value;
   }
 
-  coinReturn(): { weight: number; size: number }[] {
+  coinReturn(): Coin[] {
     return this.rejectedCoins;
   }
 }

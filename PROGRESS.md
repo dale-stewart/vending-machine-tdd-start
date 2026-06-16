@@ -11,9 +11,10 @@ Design note: coins don't know their own value — identified by weight/size.
 - [x] Identify penny (2.500g, 19.05mm) as invalid / unknown
 
 ### Remaining feature 1 parts
-- [ ] Display starts at `INSERT COIN`
-- [ ] Inserting a valid coin updates running total / display
-- [ ] Inserting a penny leaves display unchanged, routes coin to coin return
+- [x] Display starts at `INSERT COIN`
+- [x] Inserting a valid coin updates running total / display (nickel, dime)
+- [x] Total accumulates across multiple coins (characterization test)
+- [x] Inserting a penny leaves display unchanged, routes coin to coin return
 
 ## Upcoming features
 - [ ] Select Product (cola $1.00, chips $0.50, candy $0.65) — dispense + THANK YOU

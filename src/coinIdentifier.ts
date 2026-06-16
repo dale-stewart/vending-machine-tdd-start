@@ -1,4 +1,4 @@
-type Coin = { weight: number; size: number };
+export type Coin = { weight: number; size: number };
 type CoinKind = "Nickel" | "Dime" | "Quarter" | "Unknown";
 
 const COIN_SPECS: (Coin & { kind: CoinKind })[] = [
