@@ -12,4 +12,8 @@ describe("identifyCoin", () => {
   it("identifies a 5.670g, 24.26mm coin as a quarter", () => {
     expect(identifyCoin({ weight: 5.67, size: 24.26 })).toEqual("Quarter");
   });
+
+  it("identifies a 2.500g, 19.05mm penny as unknown", () => {
+    expect(identifyCoin({ weight: 2.5, size: 19.05 })).toEqual("Unknown");
+  });
 });

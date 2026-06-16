@@ -8,5 +8,5 @@ export function identifyCoin(coin: { weight: number; size: number }): string {
   const match = COIN_SPECS.find(
     (spec) => spec.weight === coin.weight && spec.size === coin.size,
   );
-  return match ? match.kind : "Nickel";
+  return match ? match.kind : "Unknown";
 }
