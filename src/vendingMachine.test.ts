@@ -45,4 +45,13 @@ describe("VendingMachine", () => {
       "INSERT COIN",
     ]);
   });
+
+  it("displays THANK YOU when cola is selected with sufficient funds", () => {
+    const machine = new VendingMachine();
+    for (let i = 0; i < 4; i++) {
+      machine.insertCoin({ weight: 5.67, size: 24.26 });
+    }
+    machine.selectProduct("cola");
+    expect(machine.display()).toEqual("THANK YOU");
+  });
 });

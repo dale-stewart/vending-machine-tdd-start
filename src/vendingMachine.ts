@@ -48,6 +48,8 @@ export class VendingMachine {
     const price = PRODUCT_PRICES_CENTS[product];
     if (this.totalCents < price) {
       this.pendingMessage = `PRICE ${formatCents(price)}`;
+      return;
     }
+    this.pendingMessage = "THANK YOU";
   }
 }
