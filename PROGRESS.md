@@ -39,5 +39,9 @@ falls through to the dispense branch (0 < undefined === false).
 - [x] SOLD OUT displayed when product out of stock (constructor-injected inventory)
 - [x] Stock depletes on purchase; last item -> SOLD OUT afterward
 
-## Upcoming features
-- [ ] Exact Change Only
+## Feature 6: Exact Change Only
+- [x] Empty change bank -> EXACT CHANGE ONLY at rest
+- [x] Bank contents matter (greedy draw); bank that can't form 5 -> EXACT CHANGE ONLY
+- [x] Change drawn from bank, depleting it into the exact-change state
+- [x] Refactor: removed dead makeChange / CHANGE_DENOMINATIONS (change now from bank)
+- [ ] Possible follow-ups: insufficient-bank purchase guard; replenish bank from inserts (deferred by design)

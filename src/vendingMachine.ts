@@ -20,22 +20,6 @@ const DEFAULT_CHANGE_BANK: Coin[] = COIN_CATALOG.flatMap((c) =>
   Array(5).fill({ weight: c.weight, size: c.size }),
 );
 
-const CHANGE_DENOMINATIONS: { cents: number; coin: Coin }[] = [...COIN_CATALOG]
-  .sort((a, b) => b.valueCents - a.valueCents)
-  .map((c) => ({ cents: c.valueCents, coin: { weight: c.weight, size: c.size } }));
-
-function makeChange(cents: number): Coin[] {
-  const coins: Coin[] = [];
-  let remaining = cents;
-  for (const { cents: denom, coin } of CHANGE_DENOMINATIONS) {
-    while (remaining >= denom) {
-      coins.push(coin);
-      remaining -= denom;
-    }
-  }
-  return coins;
-}
-
 export class VendingMachine {
   private totalCents = 0;
   private insertedCoins: Coin[] = [];
