@@ -66,4 +66,10 @@ describe("VendingMachine", () => {
       "INSERT COIN",
     ]);
   });
+
+  it("displays the price when chips are selected with insufficient funds", () => {
+    const machine = new VendingMachine();
+    machine.selectProduct("chips");
+    expect(machine.display()).toEqual("PRICE 0.50");
+  });
 });
