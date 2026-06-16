@@ -32,6 +32,7 @@ function makeChange(cents: number): Coin[] {
 
 export class VendingMachine {
   private totalCents = 0;
+  private insertedCoins: Coin[] = [];
   private coinReturnSlot: Coin[] = [];
   private pendingMessage: string | null = null;
 
@@ -54,10 +55,16 @@ export class VendingMachine {
       return;
     }
     this.totalCents += value;
+    this.insertedCoins.push(coin);
   }
 
   coinReturn(): Coin[] {
     return this.coinReturnSlot;
+  }
+
+  returnCoins(): void {
+    this.coinReturnSlot.push(...this.insertedCoins);
+    this.insertedCoins = [];
   }
 
   selectProduct(product: string): void {
