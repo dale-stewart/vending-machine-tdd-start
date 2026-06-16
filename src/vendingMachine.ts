@@ -64,8 +64,7 @@ export class VendingMachine {
 
   returnCoins(): void {
     this.coinReturnSlot.push(...this.insertedCoins);
-    this.insertedCoins = [];
-    this.totalCents = 0;
+    this.clearInsertedFunds();
   }
 
   selectProduct(product: string): void {
@@ -75,8 +74,12 @@ export class VendingMachine {
       return;
     }
     this.coinReturnSlot.push(...makeChange(this.totalCents - price));
+    this.clearInsertedFunds();
+    this.pendingMessage = "THANK YOU";
+  }
+
+  private clearInsertedFunds(): void {
     this.totalCents = 0;
     this.insertedCoins = [];
-    this.pendingMessage = "THANK YOU";
   }
 }
