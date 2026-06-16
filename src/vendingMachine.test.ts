@@ -54,4 +54,16 @@ describe("VendingMachine", () => {
     machine.selectProduct("cola");
     expect(machine.display()).toEqual("THANK YOU");
   });
+
+  it("consumes the funds after a successful purchase", () => {
+    const machine = new VendingMachine();
+    for (let i = 0; i < 4; i++) {
+      machine.insertCoin({ weight: 5.67, size: 24.26 });
+    }
+    machine.selectProduct("cola");
+    expect([machine.display(), machine.display()]).toEqual([
+      "THANK YOU",
+      "INSERT COIN",
+    ]);
+  });
 });

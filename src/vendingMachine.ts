@@ -50,6 +50,7 @@ export class VendingMachine {
       this.pendingMessage = `PRICE ${formatCents(price)}`;
       return;
     }
+    this.totalCents = 0;
     this.pendingMessage = "THANK YOU";
   }
 }
