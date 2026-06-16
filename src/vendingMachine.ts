@@ -14,6 +14,8 @@ function formatCents(cents: number): string {
   return (cents / 100).toFixed(2);
 }
 
+const DEFAULT_STOCK = 1;
+
 const CHANGE_DENOMINATIONS: { cents: number; coin: Coin }[] = [...COIN_CATALOG]
   .sort((a, b) => b.valueCents - a.valueCents)
   .map((c) => ({ cents: c.valueCents, coin: { weight: c.weight, size: c.size } }));
@@ -35,6 +37,12 @@ export class VendingMachine {
   private insertedCoins: Coin[] = [];
   private coinReturnSlot: Coin[] = [];
   private pendingMessage: string | null = null;
+
+  constructor(private inventory: { [name: string]: number } = {}) {}
+
+  private stockOf(product: string): number {
+    return this.inventory[product] ?? DEFAULT_STOCK;
+  }
 
   display(): string {
     if (this.pendingMessage !== null) {
@@ -68,6 +76,10 @@ export class VendingMachine {
   }
 
   selectProduct(product: string): void {
+    if (this.stockOf(product) === 0) {
+      this.pendingMessage = "SOLD OUT";
+      return;
+    }
     const price = PRODUCT_PRICES_CENTS[product];
     if (this.totalCents < price) {
       this.pendingMessage = `PRICE ${formatCents(price)}`;

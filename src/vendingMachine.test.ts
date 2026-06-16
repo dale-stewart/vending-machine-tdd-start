@@ -130,4 +130,13 @@ describe("VendingMachine", () => {
     machine.returnCoins();
     expect(machine.coinReturn()).toEqual([]);
   });
+
+  it("displays SOLD OUT when the selected product is out of stock", () => {
+    const machine = new VendingMachine({ cola: 0 });
+    for (let i = 0; i < 4; i++) {
+      machine.insertCoin({ weight: 5.67, size: 24.26 });
+    }
+    machine.selectProduct("cola");
+    expect(machine.display()).toEqual("SOLD OUT");
+  });
 });
