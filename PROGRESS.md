@@ -26,8 +26,9 @@ Known gap (untested, out of stated scope): selecting an unknown product
 falls through to the dispense branch (0 < undefined === false).
 
 ## Feature 3: Make Change
-- [x] Overpayment returns change to coin return (quarters only so far)
-- [ ] Multi-denomination change (e.g. 0.15 -> dime + nickel)
+- [x] Overpayment returns change to coin return
+- [x] Multi-denomination change (quarter, dime, nickel via greedy)
+- [x] Refactor: single COIN_CATALOG source of truth across modules
 
 ## Upcoming features
 - [ ] Return Coins (resets display to INSERT COIN)
