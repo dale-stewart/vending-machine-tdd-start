@@ -17,6 +17,7 @@ function formatCents(cents: number): string {
 }
 
 const QUARTER: Coin = { weight: 5.67, size: 24.26 };
+const DIME: Coin = { weight: 2.268, size: 17.91 };
 
 function makeChange(cents: number): Coin[] {
   const coins: Coin[] = [];
@@ -24,6 +25,10 @@ function makeChange(cents: number): Coin[] {
   while (remaining >= 25) {
     coins.push(QUARTER);
     remaining -= 25;
+  }
+  while (remaining >= 10) {
+    coins.push(DIME);
+    remaining -= 10;
   }
   return coins;
 }
