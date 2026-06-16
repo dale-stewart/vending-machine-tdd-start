@@ -16,6 +16,10 @@ function formatCents(cents: number): string {
 
 const DEFAULT_STOCK = 1;
 
+const DEFAULT_CHANGE_BANK: Coin[] = COIN_CATALOG.flatMap((c) =>
+  Array(5).fill({ weight: c.weight, size: c.size }),
+);
+
 const CHANGE_DENOMINATIONS: { cents: number; coin: Coin }[] = [...COIN_CATALOG]
   .sort((a, b) => b.valueCents - a.valueCents)
   .map((c) => ({ cents: c.valueCents, coin: { weight: c.weight, size: c.size } }));
@@ -38,10 +42,17 @@ export class VendingMachine {
   private coinReturnSlot: Coin[] = [];
   private pendingMessage: string | null = null;
 
-  constructor(private inventory: { [name: string]: number } = {}) {}
+  constructor(
+    private inventory: { [name: string]: number } = {},
+    private changeBank: Coin[] = DEFAULT_CHANGE_BANK,
+  ) {}
 
   private stockOf(product: string): number {
     return this.inventory[product] ?? DEFAULT_STOCK;
+  }
+
+  private canMakeChange(): boolean {
+    return this.changeBank.length > 0;
   }
 
   display(): string {
@@ -51,7 +62,7 @@ export class VendingMachine {
       return message;
     }
     if (this.totalCents === 0) {
-      return "INSERT COIN";
+      return this.canMakeChange() ? "INSERT COIN" : "EXACT CHANGE ONLY";
     }
     return formatCents(this.totalCents);
   }

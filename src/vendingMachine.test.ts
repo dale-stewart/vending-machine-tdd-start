@@ -149,4 +149,9 @@ describe("VendingMachine", () => {
     machine.selectProduct("cola");
     expect(machine.display()).toEqual("SOLD OUT");
   });
+
+  it("displays EXACT CHANGE ONLY at rest when the bank cannot make change", () => {
+    const machine = new VendingMachine({}, []);
+    expect(machine.display()).toEqual("EXACT CHANGE ONLY");
+  });
 });
