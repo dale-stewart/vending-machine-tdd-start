@@ -96,4 +96,14 @@ describe("VendingMachine", () => {
     machine.selectProduct("candy");
     expect(machine.coinReturn()).toEqual([{ weight: 2.268, size: 17.91 }]);
   });
+
+  it("returns a nickel as change when 0.05 is owed", () => {
+    const machine = new VendingMachine();
+    for (let i = 0; i < 4; i++) {
+      machine.insertCoin({ weight: 5.67, size: 24.26 });
+    }
+    machine.insertCoin({ weight: 5.0, size: 21.21 });
+    machine.selectProduct("cola");
+    expect(machine.coinReturn()).toEqual([{ weight: 5.0, size: 21.21 }]);
+  });
 });

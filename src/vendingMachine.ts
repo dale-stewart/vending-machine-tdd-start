@@ -19,6 +19,7 @@ function formatCents(cents: number): string {
 const CHANGE_DENOMINATIONS: { cents: number; coin: Coin }[] = [
   { cents: 25, coin: { weight: 5.67, size: 24.26 } },
   { cents: 10, coin: { weight: 2.268, size: 17.91 } },
+  { cents: 5, coin: { weight: 5.0, size: 21.21 } },
 ];
 
 function makeChange(cents: number): Coin[] {
