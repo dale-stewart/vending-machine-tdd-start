@@ -30,7 +30,7 @@ function makeChange(cents: number): Coin[] {
 
 export class VendingMachine {
   private totalCents = 0;
-  private rejectedCoins: Coin[] = [];
+  private coinReturnSlot: Coin[] = [];
   private pendingMessage: string | null = null;
 
   display(): string {
@@ -48,14 +48,14 @@ export class VendingMachine {
   insertCoin(coin: Coin): void {
     const value = COIN_VALUES_CENTS[identifyCoin(coin)];
     if (value === undefined) {
-      this.rejectedCoins.push(coin);
+      this.coinReturnSlot.push(coin);
       return;
     }
     this.totalCents += value;
   }
 
   coinReturn(): Coin[] {
-    return this.rejectedCoins;
+    return this.coinReturnSlot;
   }
 
   selectProduct(product: string): void {
@@ -64,7 +64,7 @@ export class VendingMachine {
       this.pendingMessage = `PRICE ${formatCents(price)}`;
       return;
     }
-    this.rejectedCoins.push(...makeChange(this.totalCents - price));
+    this.coinReturnSlot.push(...makeChange(this.totalCents - price));
     this.totalCents = 0;
     this.pendingMessage = "THANK YOU";
   }

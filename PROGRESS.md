@@ -25,8 +25,11 @@ Design note: coins don't know their own value — identified by weight/size.
 Known gap (untested, out of stated scope): selecting an unknown product
 falls through to the dispense branch (0 < undefined === false).
 
+## Feature 3: Make Change
+- [x] Overpayment returns change to coin return (quarters only so far)
+- [ ] Multi-denomination change (e.g. 0.15 -> dime + nickel)
+
 ## Upcoming features
-- [ ] Make Change
 - [ ] Return Coins (resets display to INSERT COIN)
 - [ ] Sold Out
 - [ ] Exact Change Only
