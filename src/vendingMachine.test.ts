@@ -78,4 +78,13 @@ describe("VendingMachine", () => {
     machine.selectProduct("candy");
     expect(machine.display()).toEqual("PRICE 0.65");
   });
+
+  it("returns the change to the coin return when overpaying", () => {
+    const machine = new VendingMachine();
+    for (let i = 0; i < 3; i++) {
+      machine.insertCoin({ weight: 5.67, size: 24.26 });
+    }
+    machine.selectProduct("chips");
+    expect(machine.coinReturn()).toEqual([{ weight: 5.67, size: 24.26 }]);
+  });
 });

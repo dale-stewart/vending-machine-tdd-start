@@ -16,6 +16,18 @@ function formatCents(cents: number): string {
   return (cents / 100).toFixed(2);
 }
 
+const QUARTER: Coin = { weight: 5.67, size: 24.26 };
+
+function makeChange(cents: number): Coin[] {
+  const coins: Coin[] = [];
+  let remaining = cents;
+  while (remaining >= 25) {
+    coins.push(QUARTER);
+    remaining -= 25;
+  }
+  return coins;
+}
+
 export class VendingMachine {
   private totalCents = 0;
   private rejectedCoins: Coin[] = [];
@@ -52,6 +64,7 @@ export class VendingMachine {
       this.pendingMessage = `PRICE ${formatCents(price)}`;
       return;
     }
+    this.rejectedCoins.push(...makeChange(this.totalCents - price));
     this.totalCents = 0;
     this.pendingMessage = "THANK YOU";
   }
