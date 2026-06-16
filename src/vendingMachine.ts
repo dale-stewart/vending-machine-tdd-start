@@ -16,19 +16,19 @@ function formatCents(cents: number): string {
   return (cents / 100).toFixed(2);
 }
 
-const QUARTER: Coin = { weight: 5.67, size: 24.26 };
-const DIME: Coin = { weight: 2.268, size: 17.91 };
+const CHANGE_DENOMINATIONS: { cents: number; coin: Coin }[] = [
+  { cents: 25, coin: { weight: 5.67, size: 24.26 } },
+  { cents: 10, coin: { weight: 2.268, size: 17.91 } },
+];
 
 function makeChange(cents: number): Coin[] {
   const coins: Coin[] = [];
   let remaining = cents;
-  while (remaining >= 25) {
-    coins.push(QUARTER);
-    remaining -= 25;
-  }
-  while (remaining >= 10) {
-    coins.push(DIME);
-    remaining -= 10;
+  for (const { cents: denom, coin } of CHANGE_DENOMINATIONS) {
+    while (remaining >= denom) {
+      coins.push(coin);
+      remaining -= denom;
+    }
   }
   return coins;
 }
