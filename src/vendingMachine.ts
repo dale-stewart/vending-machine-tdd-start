@@ -21,7 +21,9 @@ export class VendingMachine {
 
   display(): string {
     if (this.pendingMessage !== null) {
-      return this.pendingMessage;
+      const message = this.pendingMessage;
+      this.pendingMessage = null;
+      return message;
     }
     if (this.totalCents === 0) {
       return "INSERT COIN";

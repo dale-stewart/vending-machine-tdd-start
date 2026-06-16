@@ -36,4 +36,13 @@ describe("VendingMachine", () => {
     machine.selectProduct("cola");
     expect(machine.display()).toEqual("PRICE 1.00");
   });
+
+  it("reverts to INSERT COIN after the price has been displayed once", () => {
+    const machine = new VendingMachine();
+    machine.selectProduct("cola");
+    expect([machine.display(), machine.display()]).toEqual([
+      "PRICE 1.00",
+      "INSERT COIN",
+    ]);
+  });
 });
