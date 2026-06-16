@@ -1,10 +1,8 @@
-import { identifyCoin, Coin } from "./coinIdentifier";
+import { identifyCoin, Coin, COIN_CATALOG } from "./coinIdentifier";
 
-const COIN_VALUES_CENTS: { [kind: string]: number } = {
-  Nickel: 5,
-  Dime: 10,
-  Quarter: 25,
-};
+const COIN_VALUES_CENTS: { [kind: string]: number } = Object.fromEntries(
+  COIN_CATALOG.map((c) => [c.kind, c.valueCents]),
+);
 
 const PRODUCT_PRICES_CENTS: { [name: string]: number } = {
   cola: 100,
@@ -16,11 +14,9 @@ function formatCents(cents: number): string {
   return (cents / 100).toFixed(2);
 }
 
-const CHANGE_DENOMINATIONS: { cents: number; coin: Coin }[] = [
-  { cents: 25, coin: { weight: 5.67, size: 24.26 } },
-  { cents: 10, coin: { weight: 2.268, size: 17.91 } },
-  { cents: 5, coin: { weight: 5.0, size: 21.21 } },
-];
+const CHANGE_DENOMINATIONS: { cents: number; coin: Coin }[] = [...COIN_CATALOG]
+  .sort((a, b) => b.valueCents - a.valueCents)
+  .map((c) => ({ cents: c.valueCents, coin: { weight: c.weight, size: c.size } }));
 
 function makeChange(cents: number): Coin[] {
   const coins: Coin[] = [];
