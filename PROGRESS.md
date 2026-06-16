@@ -35,6 +35,9 @@ falls through to the dispense branch (0 < undefined === false).
 - [x] returnCoins() resets display to INSERT COIN
 - [x] Purchase consumes inserted coins (can't be returned afterward)
 
+## Feature 5: Sold Out
+- [x] SOLD OUT displayed when product out of stock (constructor-injected inventory)
+- [x] Stock depletes on purchase; last item -> SOLD OUT afterward
+
 ## Upcoming features
-- [ ] Sold Out
 - [ ] Exact Change Only

@@ -139,4 +139,14 @@ describe("VendingMachine", () => {
     machine.selectProduct("cola");
     expect(machine.display()).toEqual("SOLD OUT");
   });
+
+  it("becomes sold out after the last item is purchased", () => {
+    const machine = new VendingMachine({ cola: 1 });
+    for (let i = 0; i < 8; i++) {
+      machine.insertCoin({ weight: 5.67, size: 24.26 });
+    }
+    machine.selectProduct("cola");
+    machine.selectProduct("cola");
+    expect(machine.display()).toEqual("SOLD OUT");
+  });
 });
