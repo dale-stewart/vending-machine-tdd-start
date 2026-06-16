@@ -16,8 +16,13 @@ Design note: coins don't know their own value — identified by weight/size.
 - [x] Total accumulates across multiple coins (characterization test)
 - [x] Inserting a penny leaves display unchanged, routes coin to coin return
 
+## Feature 2: Select Product (cola $1.00, chips $0.50, candy $0.65)
+- [x] Select with insufficient funds shows PRICE x.xx (cola)
+- [ ] PRICE/THANK YOU message reverts to INSERT COIN/amount after one display read
+- [ ] Select with sufficient funds dispenses + shows THANK YOU, resets total
+- [ ] Chips ($0.50) and candy ($0.65) prices
+
 ## Upcoming features
-- [ ] Select Product (cola $1.00, chips $0.50, candy $0.65) — dispense + THANK YOU
 - [ ] Make Change
 - [ ] Return Coins (resets display to INSERT COIN)
 - [ ] Sold Out

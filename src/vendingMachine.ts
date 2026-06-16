@@ -10,6 +10,10 @@ const PRODUCT_PRICES_CENTS: { [name: string]: number } = {
   cola: 100,
 };
 
+function formatCents(cents: number): string {
+  return (cents / 100).toFixed(2);
+}
+
 export class VendingMachine {
   private totalCents = 0;
   private rejectedCoins: Coin[] = [];
@@ -22,7 +26,7 @@ export class VendingMachine {
     if (this.totalCents === 0) {
       return "INSERT COIN";
     }
-    return (this.totalCents / 100).toFixed(2);
+    return formatCents(this.totalCents);
   }
 
   insertCoin(coin: Coin): void {
@@ -41,7 +45,7 @@ export class VendingMachine {
   selectProduct(product: string): void {
     const price = PRODUCT_PRICES_CENTS[product];
     if (this.totalCents < price) {
-      this.pendingMessage = `PRICE ${(price / 100).toFixed(2)}`;
+      this.pendingMessage = `PRICE ${formatCents(price)}`;
     }
   }
 }
