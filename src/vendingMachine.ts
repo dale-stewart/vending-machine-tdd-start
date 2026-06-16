@@ -65,6 +65,7 @@ export class VendingMachine {
   returnCoins(): void {
     this.coinReturnSlot.push(...this.insertedCoins);
     this.insertedCoins = [];
+    this.totalCents = 0;
   }
 
   selectProduct(product: string): void {

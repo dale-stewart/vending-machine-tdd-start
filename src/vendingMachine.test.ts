@@ -113,4 +113,11 @@ describe("VendingMachine", () => {
     machine.returnCoins();
     expect(machine.coinReturn()).toEqual([{ weight: 5.67, size: 24.26 }]);
   });
+
+  it("resets the display to INSERT COIN after returning coins", () => {
+    const machine = new VendingMachine();
+    machine.insertCoin({ weight: 5.67, size: 24.26 });
+    machine.returnCoins();
+    expect(machine.display()).toEqual("INSERT COIN");
+  });
 });
