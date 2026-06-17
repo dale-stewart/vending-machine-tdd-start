@@ -120,3 +120,65 @@ scenario valid).
 > Note: mutation testing was added after Review 3 and lifted the suite further
 > (final mutation score 95.19%, with the remaining survivors all equivalent
 > mutants). It was not part of these three review passes.
+
+---
+
+## Equivalent mutants
+
+An **equivalent mutant** is a mutation that changes the *source code* but not the
+program's *observable behavior* — the mutated program is functionally identical
+to the original for every possible input. Because no input can make it behave
+differently, **no test can kill it**. It is not a gap in the tests; it is a
+mutation that is logically impossible to detect.
+
+This matters because mutation score is `killed / (killed + survived)`. Equivalent
+mutants can only ever land in the "survived" bucket, so they impose a ceiling
+below 100% that is not a quality problem. (Deciding whether a mutant is
+equivalent is, in general, undecidable, so Stryker reports it as "survived" and
+leaves the judgment to a human.)
+
+All 5 remaining survivors in this kata are equivalent (or near-equivalent), for
+two reasons.
+
+### 1. Coin matcher — unique-dimension domain invariant (3 survivors)
+
+`payOutChange` matches a change coin against the bank with:
+
+```ts
+(c) => c.weight === coin.weight && c.size === coin.size
+```
+
+Stryker mutates `&&` → `||` (and the `===` clauses to `true`). Normally these
+behave very differently, but a **domain invariant** makes them identical here:
+the change bank only ever holds *real* coins (nickel, dime, quarter), and every
+real coin has a **unique weight *and* a unique size** — no two real coins share
+either dimension. So:
+
+- For the target coin, both clauses are true → `&&` and `||` both match it.
+- For any other bank coin, both clauses are false → both reject it.
+
+There is no coin reachable through the public API that matches one dimension but
+not the other (that would require a fake coin the machine never creates), so the
+mutants select the same coin in every reachable state. Killing them would require
+injecting a contrived coin directly into the bank — an unreachable state — i.e. a
+dishonest test asserting behavior the system cannot exhibit. We left them
+surviving rather than chase 100%.
+
+### 2. Unknown-product guard — redundant with a downstream guard (2 survivors)
+
+```ts
+if (price === undefined) { return; }   // gutting the body survives
+```
+
+This is *near-equivalent* for a different reason: a downstream guard
+(`drawChange(NaN) === null → return`) already produces the identical outcome
+(refuse the sale, retain funds) for an unknown product. Removing this guard's
+effect changes nothing observable. It is kept for clarity/intent, accepting that
+mutation testing correctly flags it as not independently necessary.
+
+### Takeaway
+
+A surviving mutant means *either* "the tests have a gap" *or* "this mutation
+cannot change behavior." The skill is telling them apart — kill the former, and
+recognize/document the latter rather than writing artificial tests to chase a
+perfect score.
