@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "duplication": "jscpd"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +14,7 @@
   "devDependencies": {
     "@types/jest": "^30.0.0",
     "jest": "^30.4.2",
+    "jscpd": "^5.0.9",
     "ts-jest": "^29.4.11",
     "typescript": "^6.0.3"
   }

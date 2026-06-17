@@ -1,0 +1,8 @@
+{
+  "path": ["src"],
+  "ignore": ["**/node_modules/**", "**/coverage/**", "**/dist/**"],
+  "reporters": ["console"],
+  "format": ["typescript"],
+  "minTokens": 50,
+  "gitignore": true
+}
