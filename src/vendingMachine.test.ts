@@ -160,6 +160,15 @@ describe("VendingMachine", () => {
     ]);
   });
 
+  it("sells out a default-stocked product after its default stock is used up", () => {
+    const machine = new VendingMachine();
+    insertCoins(machine, [QUARTER, QUARTER, QUARTER, QUARTER]);
+    machine.selectProduct("cola");
+    insertCoins(machine, [QUARTER, QUARTER, QUARTER, QUARTER]);
+    machine.selectProduct("cola");
+    expect(machine.display()).toEqual("SOLD OUT");
+  });
+
   it("removes the specific change coin from the bank, not another", () => {
     // Bank holds the nickel between a dime and a quarter; paying without a
     // nickel means only removing THAT nickel leaves the bank unable to make 5.
