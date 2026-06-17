@@ -100,7 +100,10 @@ export class VendingMachine {
       this.pendingMessage = `PRICE ${formatCents(price)}`;
       return;
     }
-    const change = this.drawChange(this.totalCents - price) ?? [];
+    const change = this.drawChange(this.totalCents - price);
+    if (change === null) {
+      return;
+    }
     for (const coin of change) {
       const index = this.changeBank.findIndex(
         (c) => c.weight === coin.weight && c.size === coin.size,

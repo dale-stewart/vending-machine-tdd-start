@@ -133,4 +133,12 @@ describe("VendingMachine", () => {
       "EXACT CHANGE ONLY",
     ]);
   });
+
+  it("refuses the sale when the bank cannot make the required change", () => {
+    const machine = new VendingMachine({}, [NICKEL]);
+    insertCoins(machine, [QUARTER, QUARTER, QUARTER]);
+    machine.selectProduct("chips");
+    machine.returnCoins();
+    expect(machine.coinReturn()).toEqual([QUARTER, QUARTER, QUARTER]);
+  });
 });
