@@ -1,4 +1,6 @@
 coverage/
 node_modules/
 .DS_Store
+reports/
+.stryker-tmp/
 
