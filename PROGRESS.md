@@ -45,7 +45,8 @@ falls through to the dispense branch (0 < undefined === false).
 - [x] Change drawn from bank, depleting it into the exact-change state
 - [x] Refactor: removed dead makeChange / CHANGE_DENOMINATIONS (change now from bank)
 - [x] Insufficient-bank purchase guard: refuse sale when bank can't make change (funds retained)
-- [ ] Possible follow-ups: unknown-product fall-through; replenish bank from inserts (deferred by design)
+- [x] Unknown-product selection: explicit guard (no-op), pinned by characterization test
+- [ ] Possible follow-ups: replenish bank from inserts (deferred by design)
 
 ## Test refactor (post nw-review)
 - [x] Parametrized identification, running-total, pricing, change, and exact-change cases

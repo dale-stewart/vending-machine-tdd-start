@@ -96,6 +96,9 @@ export class VendingMachine {
       return;
     }
     const price = PRODUCT_PRICES_CENTS[product];
+    if (price === undefined) {
+      return;
+    }
     if (this.totalCents < price) {
       this.pendingMessage = `PRICE ${formatCents(price)}`;
       return;
