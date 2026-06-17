@@ -159,4 +159,16 @@ describe("VendingMachine", () => {
       "INSERT COIN",
     ]);
   });
+
+  it("removes the specific change coin from the bank, not another", () => {
+    // Bank holds the nickel between a dime and a quarter; paying without a
+    // nickel means only removing THAT nickel leaves the bank unable to make 5.
+    const machine = new VendingMachine({}, [DIME, NICKEL, QUARTER]);
+    insertCoins(machine, [QUARTER, DIME, DIME, DIME]);
+    machine.selectProduct("chips");
+    expect([machine.display(), machine.display()]).toEqual([
+      "THANK YOU",
+      "EXACT CHANGE ONLY",
+    ]);
+  });
 });
