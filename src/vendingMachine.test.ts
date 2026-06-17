@@ -126,7 +126,7 @@ describe("VendingMachine", () => {
 
   it("draws change from the bank, depleting it into the exact-change state", () => {
     const machine = new VendingMachine({}, [NICKEL]);
-    insertCoins(machine, [QUARTER, QUARTER, NICKEL]);
+    insertCoins(machine, [QUARTER, DIME, DIME, DIME]);
     machine.selectProduct("chips");
     expect([machine.display(), machine.display()]).toEqual([
       "THANK YOU",
@@ -148,5 +148,15 @@ describe("VendingMachine", () => {
     machine.selectProduct("water");
     machine.returnCoins();
     expect(machine.coinReturn()).toEqual([QUARTER]);
+  });
+
+  it("replenishes the change bank with inserted coins on a completed sale", () => {
+    const machine = new VendingMachine({}, []);
+    insertCoins(machine, Array(10).fill(NICKEL));
+    machine.selectProduct("chips");
+    expect([machine.display(), machine.display()]).toEqual([
+      "THANK YOU",
+      "INSERT COIN",
+    ]);
   });
 });

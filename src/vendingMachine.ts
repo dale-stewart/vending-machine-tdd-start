@@ -108,6 +108,7 @@ export class VendingMachine {
       return;
     }
     this.payOutChange(change);
+    this.changeBank.push(...this.insertedCoins);
     this.inventory[product] = this.stockOf(product) - 1;
     this.clearInsertedFunds();
     this.pendingMessage = "THANK YOU";
