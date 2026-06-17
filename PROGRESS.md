@@ -46,7 +46,7 @@ falls through to the dispense branch (0 < undefined === false).
 - [x] Refactor: removed dead makeChange / CHANGE_DENOMINATIONS (change now from bank)
 - [x] Insufficient-bank purchase guard: refuse sale when bank can't make change (funds retained)
 - [x] Unknown-product selection: explicit guard (no-op), pinned by characterization test
-- [ ] Possible follow-ups: replenish bank from inserts (deferred by design)
+- [x] Replenish change bank with inserted coins on a completed sale (realistic model)
 
 ## Test refactor (post nw-review)
 - [x] Parametrized identification, running-total, pricing, change, and exact-change cases
