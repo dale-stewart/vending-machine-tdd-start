@@ -104,6 +104,13 @@ export class VendingMachine {
     if (change === null) {
       return;
     }
+    this.payOutChange(change);
+    this.inventory[product] = this.stockOf(product) - 1;
+    this.clearInsertedFunds();
+    this.pendingMessage = "THANK YOU";
+  }
+
+  private payOutChange(change: Coin[]): void {
     for (const coin of change) {
       const index = this.changeBank.findIndex(
         (c) => c.weight === coin.weight && c.size === coin.size,
@@ -111,9 +118,6 @@ export class VendingMachine {
       this.changeBank.splice(index, 1);
     }
     this.coinReturnSlot.push(...change);
-    this.inventory[product] = this.stockOf(product) - 1;
-    this.clearInsertedFunds();
-    this.pendingMessage = "THANK YOU";
   }
 
   private clearInsertedFunds(): void {
