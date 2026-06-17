@@ -141,4 +141,12 @@ describe("VendingMachine", () => {
     machine.returnCoins();
     expect(machine.coinReturn()).toEqual([QUARTER, QUARTER, QUARTER]);
   });
+
+  it("ignores selection of an unknown product, retaining funds", () => {
+    const machine = new VendingMachine();
+    insertCoins(machine, [QUARTER]);
+    machine.selectProduct("water");
+    machine.returnCoins();
+    expect(machine.coinReturn()).toEqual([QUARTER]);
+  });
 });
